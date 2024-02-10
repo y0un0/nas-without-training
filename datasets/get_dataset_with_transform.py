@@ -23,7 +23,8 @@ Dataset2Class = {'cifar10' : 10,
                  'ImageNet16'  : 1000,
                  'ImageNet16-150': 150,
                  'ImageNet16-120': 120,
-                 'ImageNet16-200': 200}
+                 'ImageNet16-200': 200,
+                 'gtos-mobile': 31}
 
 
 class CUTOUT(object):
@@ -103,6 +104,8 @@ def get_datasets(name, root, cutout):
   elif name == 'fake':
     mean = [x / 255 for x in [129.3, 124.1, 112.4]]
     std  = [x / 255 for x in [68.2, 65.4, 70.4]]
+  elif name == 'gtos-mobile':
+    mean, std = [0.4589, 0.3942, 0.3433], [0.2234, 0.2100, 0.2013]
   elif name.startswith('imagenet-1k'):
     mean, std = [0.485, 0.456, 0.406], [0.229, 0.224, 0.225]
   elif name.startswith('imagenette'):
@@ -138,11 +141,17 @@ def get_datasets(name, root, cutout):
     train_transform = transforms.Compose(lists)
     test_transform  = transforms.Compose([transforms.CenterCrop(80), transforms.ToTensor(), transforms.Normalize(mean, std)])
     xshape = (1, 3, 32, 32)
+  elif name == 'gtos-mobile':
+    lists = [transforms.RandomHorizontalFlip(), transforms.ColorJitter(0.4,0.4,0.4,0.2), Lighting(0.1), transforms.Resize(256), transforms.RandomCrop(224), transforms.ToTensor(), transforms.Normalize(mean, std)]
+    if cutout > 0 : lists += [CUTOUT(cutout)]
+    train_transform = transforms.Compose(lists)
+    test_transform  = transforms.Compose([transforms.Resize(256), transforms.CenterCrop(224), transforms.ToTensor(), transforms.Normalize(mean, std)])
+    xshape = (1, 3, 224, 224)
   elif name.startswith('imagenette'):
     normalize = transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
     xlists = []
-    xlists.append( transforms.ToTensor() )
-    xlists.append( normalize )
+    xlists.append(transforms.ToTensor())
+    xlists.append(normalize)
     #train_transform = transforms.Compose(xlists)
     train_transform  = transforms.Compose([normalize, normalize, transforms.Resize(256), transforms.CenterCrop(224), transforms.ToTensor(), normalize])
     test_transform  = transforms.Compose([normalize, normalize, transforms.Resize(256), transforms.CenterCrop(224), transforms.ToTensor(), normalize])
