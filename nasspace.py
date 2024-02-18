@@ -357,4 +357,3 @@ def get_search_space(args):
         return NDS('Vanilla_lr-wd')
     elif args.nasspace == 'nds_vanilla_lr-wd_in':
         return NDS('Vanilla_lr-wd_in')
-

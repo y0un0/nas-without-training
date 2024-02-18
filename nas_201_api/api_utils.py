@@ -22,6 +22,10 @@ def remap_dataset_set_names(dataset, metric_on_set, verbose=False):
     dataset, metric_on_set = 'cifar10-valid', 'x-valid'
   elif dataset == 'cifar10' and metric_on_set == 'test':
     dataset, metric_on_set = 'cifar10', 'ori-test'
+  elif dataset == 'gtos-mobile' and metric_on_set == 'valid':
+    dataset, metric_on_set = 'gtos-mobile-valid', 'x-valid'
+  elif dataset == 'gtos-mobile' and metric_on_set == 'test':
+    dataset, metric_on_set = 'gtos-mobile', 'x-test'
   elif dataset == 'cifar10' and metric_on_set == 'train':
     dataset, metric_on_set = 'cifar10', 'train'
   elif (dataset == 'cifar100' or dataset == 'ImageNet16-120') and metric_on_set == 'valid':
@@ -68,7 +72,7 @@ class NASBenchMetaAPI(metaclass=abc.ABCMeta):
 
   def simulate_train_eval(self, arch, dataset, iepoch=None, hp='12', account_time=True):
     index = self.query_index_by_arch(arch)
-    all_names = ('cifar10', 'cifar100', 'ImageNet16-120')
+    all_names = ('cifar10', 'cifar100', 'ImageNet16-120', 'gtos-mobile')
     assert dataset in all_names, 'Invalid dataset name : {:} vs {:}'.format(dataset, all_names)
     if dataset == 'cifar10':
       info = self.get_more_info(index, 'cifar10-valid', iepoch=iepoch, hp=hp, is_random=True)
@@ -388,6 +392,8 @@ class ArchResults(object):
         ------ False : return the averaged metric of all avaliable trials.
         ------ an integer indicating the 'seed' value : return the metric of a specific trial (whose random seed is 'is_random').
     """
+    print(dataset)
+    print(self.dataset_seed)
     x_seeds = self.dataset_seed[dataset]
     results = [self.all_results[ (dataset, seed) ] for seed in x_seeds]
     infos   = defaultdict(list)
