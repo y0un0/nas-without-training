@@ -394,6 +394,7 @@ class ArchResults(object):
     """
     print(dataset)
     print(self.dataset_seed)
+    self.dataset_seed[dataset] = [777, 888, 999]
     x_seeds = self.dataset_seed[dataset]
     results = [self.all_results[ (dataset, seed) ] for seed in x_seeds]
     infos   = defaultdict(list)
@@ -565,7 +566,7 @@ class ArchResults(object):
 
   def debug_test(self):
     """This function is used for me to debug and test, which will call most methods."""
-    all_dataset = ['cifar10-valid', 'cifar10', 'cifar100', 'ImageNet16-120']
+    all_dataset = ['cifar10-valid', 'cifar10', 'cifar100', 'ImageNet16-120', 'gtos-mobile']
     for dataset in all_dataset:
       print('---->>>> {:}'.format(dataset))
       print('The latency on {:} is {:} s'.format(dataset, self.get_latency(dataset)))
