@@ -314,7 +314,7 @@ class NASBenchMetaAPI(metaclass=abc.ABCMeta):
     """This function will count the number of total trials."""
     if self.verbose:
       print('Call the statistics function with dataset={:} and hp={:}.'.format(dataset, hp))
-    valid_datasets = ['cifar10-valid', 'cifar10', 'cifar100', 'ImageNet16-120']
+    valid_datasets = ['cifar10-valid', 'cifar10', 'cifar100', 'ImageNet16-120', 'gtos-mobile']
     if dataset not in valid_datasets:
       raise ValueError('{:} not in {:}'.format(dataset, valid_datasets))
     nums, hp = defaultdict(lambda: 0), str(hp)
