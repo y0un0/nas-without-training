@@ -166,25 +166,32 @@ for N in runs:
     uid = searchspace[best_arch]
     topscores.append(scores[order_fn(scores)])
     chosen.append(best_arch)
-    acc.append(searchspace.get_accuracy(uid, acc_type, args.trainval))
-    # acc.append(searchspace.get_final_accuracy(uid, acc_type, False))
+#     acc.append(searchspace.get_accuracy(uid, acc_type, args.trainval))
+#     # acc.append(searchspace.get_final_accuracy(uid, acc_type, False))
 
-    if not args.dataset == 'cifar10' or args.trainval:
-        val_acc.append(searchspace.get_final_accuracy(uid, val_acc_type, args.trainval))
-    #    val_acc.append(info.get_metrics(dset, val_acc_type)['accuracy'])
+#     if not args.dataset == 'cifar10' or args.trainval:
+#         val_acc.append(searchspace.get_final_accuracy(uid, val_acc_type, args.trainval))
+#     #    val_acc.append(info.get_metrics(dset, val_acc_type)['accuracy'])
 
-    times.append(time.time()-start)
-    runs.set_description(f"acc: {mean(acc):.2f}% time:{mean(times):.2f}")
+#     times.append(time.time()-start)
+#     runs.set_description(f"acc: {mean(acc):.2f}% time:{mean(times):.2f}")
 
-print(f"Final mean test accuracy: {np.mean(acc)}")
+# print(f"Final mean test accuracy: {np.mean(acc)}")
+print("Final mean topscores accuracy: ", np.mean(topscores))
 #if len(val_acc) > 1:
 #    print(f"Final mean validation accuracy: {np.mean(val_acc)}")
 
-state = {'accs': acc,
-         'chosen': chosen,
+# state = {'accs': acc,
+#          'chosen': chosen,
+#          'times': times,
+#          'topscores': topscores,
+#          }
+
+state = {'chosen': chosen,
          'times': times,
          'topscores': topscores,
          }
+         
 
 dset = args.dataset if not (args.trainval and args.dataset == 'cifar10') else 'cifar10-valid'
 fname = f"{args.save_loc}/{args.save_string}_{args.score}_{args.nasspace}_{dset}_{args.kernel}_{args.dropout}_{args.augtype}_{args.sigma}_{args.repeat}_{args.batch_size}_{args.n_runs}_{args.n_samples}_{args.seed}.t7"
