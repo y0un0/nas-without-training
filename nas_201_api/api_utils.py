@@ -335,7 +335,6 @@ class ArchResults(object):
     self.arch_str     = copy.deepcopy(arch_str)
     self.all_results  = dict()
     self.dataset_seed = dict()
-    self.dataset_seed["gtos-mobile"] = [777, 888, 999]
     self.clear_net_done = False
 
   def get_compute_costs(self, dataset):
@@ -393,10 +392,12 @@ class ArchResults(object):
         ------ False : return the averaged metric of all avaliable trials.
         ------ an integer indicating the 'seed' value : return the metric of a specific trial (whose random seed is 'is_random').
     """
-    print(dataset)
+    self.dataset_seed[dataset] = [777, 888, 999]
     print(self.dataset_seed)
     x_seeds = self.dataset_seed[dataset]
+    print(x_seeds)
     results = [self.all_results[ (dataset, seed) ] for seed in x_seeds]
+    print(results)
     infos   = defaultdict(list)
     for result in results:
       if setname == 'train':
