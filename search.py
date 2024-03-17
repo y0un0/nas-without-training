@@ -134,6 +134,7 @@ for N in runs:
 
             data_iterator = iter(train_loader)
             x, target = next(data_iterator)
+            print(x.shape)
             x2 = torch.clone(x)
             x2 = x2.to(device)
             x, target = x.to(device), target.to(device)

@@ -198,6 +198,7 @@ def get_datasets(name, root, cutout):
     test_data  = dset.ImageFolder(osp.join(root, 'val'),   test_transform)
     assert len(train_data) == 1281167 and len(test_data) == 50000, 'invalid number of images : {:} & {:} vs {:} & {:}'.format(len(train_data), len(test_data), 1281167, 50000)
   elif name.startswith('gtos-mobile'):
+    print(osp.join(root, 'train'))
     train_data = dset.ImageFolder(osp.join(root, 'train'), train_transform)
     test_data  = dset.ImageFolder(osp.join(root, 'test'),   test_transform)
     assert len(train_data) == 93945 and len(test_data) == 6066
