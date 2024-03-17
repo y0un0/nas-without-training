@@ -396,6 +396,7 @@ class ArchResults(object):
     print(self.dataset_seed)
     x_seeds = self.dataset_seed[dataset]
     print(x_seeds)
+    print(self.all_results)
     results = [self.all_results[ (dataset, seed) ] for seed in x_seeds]
     print(results)
     infos   = defaultdict(list)
