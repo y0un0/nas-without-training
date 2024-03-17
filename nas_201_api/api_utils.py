@@ -392,13 +392,8 @@ class ArchResults(object):
         ------ False : return the averaged metric of all avaliable trials.
         ------ an integer indicating the 'seed' value : return the metric of a specific trial (whose random seed is 'is_random').
     """
-    self.dataset_seed[dataset] = [777, 888, 999]
-    print(self.dataset_seed)
     x_seeds = self.dataset_seed[dataset]
-    print(x_seeds)
-    print(self.all_results)
     results = [self.all_results[ (dataset, seed) ] for seed in x_seeds]
-    print(results)
     infos   = defaultdict(list)
     for result in results:
       if setname == 'train':

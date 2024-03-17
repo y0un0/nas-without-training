@@ -166,10 +166,10 @@ for N in runs:
     topscores.append(scores[order_fn(scores)])
     chosen.append(best_arch)
     #acc.append(searchspace.get_accuracy(uid, acc_type, args.trainval))
-    acc.append(searchspace.get_final_accuracy(uid, acc_type, False))
+    # acc.append(searchspace.get_final_accuracy(uid, acc_type, False))
 
-    if not args.dataset == 'cifar10' or args.trainval:
-        val_acc.append(searchspace.get_final_accuracy(uid, val_acc_type, args.trainval))
+    # if not args.dataset == 'cifar10' or args.trainval:
+    #     val_acc.append(searchspace.get_final_accuracy(uid, val_acc_type, args.trainval))
     #    val_acc.append(info.get_metrics(dset, val_acc_type)['accuracy'])
 
     times.append(time.time()-start)
