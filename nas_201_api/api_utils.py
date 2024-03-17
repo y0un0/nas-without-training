@@ -335,6 +335,7 @@ class ArchResults(object):
     self.arch_str     = copy.deepcopy(arch_str)
     self.all_results  = dict()
     self.dataset_seed = dict()
+    self.dataset_seed["gtos-mobile"] = [777, 888, 999]
     self.clear_net_done = False
 
   def get_compute_costs(self, dataset):
@@ -394,7 +395,6 @@ class ArchResults(object):
     """
     print(dataset)
     print(self.dataset_seed)
-    self.dataset_seed[dataset] = [777, 888, 999]
     x_seeds = self.dataset_seed[dataset]
     results = [self.all_results[ (dataset, seed) ] for seed in x_seeds]
     infos   = defaultdict(list)
