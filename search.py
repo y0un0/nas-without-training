@@ -134,7 +134,7 @@ for N in runs:
 
             data_iterator = iter(train_loader)
             x, target = next(data_iterator)
-            print(x.shape)
+
             x2 = torch.clone(x)
             x2 = x2.to(device)
             x, target = x.to(device), target.to(device)
@@ -166,11 +166,11 @@ for N in runs:
     uid = searchspace[best_arch]
     topscores.append(scores[order_fn(scores)])
     chosen.append(best_arch)
-    #acc.append(searchspace.get_accuracy(uid, acc_type, args.trainval))
+    acc.append(searchspace.get_accuracy(uid, acc_type, args.trainval))
     # acc.append(searchspace.get_final_accuracy(uid, acc_type, False))
 
-    # if not args.dataset == 'cifar10' or args.trainval:
-    #     val_acc.append(searchspace.get_final_accuracy(uid, val_acc_type, args.trainval))
+    if not args.dataset == 'cifar10' or args.trainval:
+        val_acc.append(searchspace.get_final_accuracy(uid, val_acc_type, args.trainval))
     #    val_acc.append(info.get_metrics(dset, val_acc_type)['accuracy'])
 
     times.append(time.time()-start)
